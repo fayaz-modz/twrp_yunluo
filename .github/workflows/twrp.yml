@@ -14,7 +14,7 @@ on:
       DEVICE_TREE_URL:
         description: 'DEVICE_TREE_URL'
         required: true
-        default: 'https://github.com/winter-bear/twrp_alldocube_t1030m'
+        default: 'https://github.com/fayaz-modz/twrp_yunluo'
       DEVICE_TREE_BRANCH:
         description: 'DEVICE_TREE_BRANCH'
         required: true
@@ -71,11 +71,14 @@ jobs:
         sudo apt update
         sudo apt -y upgrade
         sudo apt -y install curl zip wget gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev libncurses5 x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libncurses5 libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev python
+        git config --global user.name "Fayaz Mohammad"
+        git config --global user.email "mdfayaz9963@gmail.com"
 
     - name: Install OpenJDK
-      run: |
-        git clone https://github.com/cd-Spidey/Random.git ./opendjk
-        sudo bash opendjk/setup/packages/open_jdk.sh
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'zulu'
+        java-version: '8'
       
     - name: Install Git-Repo
       run: |
@@ -89,8 +92,6 @@ jobs:
         mkdir workspace
         cd workspace
         echo "workdir=$(pwd)" >> $GITHUB_OUTPUT
-        git config --global user.name "Carlo Dee"
-        git config --global user.email "carlodee.officail@gmail.com"
         repo init --depth=1 -u ${{ github.event.inputs.MANIFEST_URL }} -b ${{ github.event.inputs.MANIFEST_BRANCH }}
       id: pwd
           
